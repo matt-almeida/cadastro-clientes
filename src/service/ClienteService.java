@@ -38,6 +38,18 @@ public class ClienteService {
 	public void atualizar(Long id, String nome, String email, String telefone) {
 		Cliente cliente = buscarPorId(id);
 		
+		if (nome == null || nome.isBlank()) {
+			throw new IllegalArgumentException("Nome inválido");
+		}
+
+		if (email == null || email.isBlank()) {
+			throw new IllegalArgumentException("Email inválido");
+		}
+
+		if (telefone == null || telefone.isBlank()) {
+			throw new IllegalArgumentException("Telefone inválido");
+		}
+		
 		cliente.setNome(nome);
 		cliente.setEmail(email);
 		cliente.setTelefone(telefone);

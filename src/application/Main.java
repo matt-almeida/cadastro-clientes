@@ -17,6 +17,8 @@ public class Main {
 			System.out.println("\n1 - Criar cliente");
 			System.out.println("2 - Listar clientes");
 			System.out.println("3 - Deletar clientes");
+			System.out.println("4 - Buscar cliente por ID");
+			System.out.println("5 - Atualizar cliente");
 			System.out.println("0 - Sair");
 			
 			int opcao = sc.nextInt();
@@ -46,7 +48,7 @@ public class Main {
 				
 			case 2:
 				for (Cliente c : service.listar()) {
-					System.out.println(c.getId() + " - " + c.getNome());
+					System.out.println(c);
 				}
 				break;
 				
@@ -62,6 +64,39 @@ public class Main {
 				}
 				break;
 				
+			case 4:
+			    System.out.print("ID: ");
+			    Long idBusca = sc.nextLong();
+
+			    try {
+			        Cliente cliente = service.buscarPorId(idBusca);
+			        System.out.println(cliente);
+			    } catch (Exception e) {
+			        System.out.println(e.getMessage());
+			    }
+			    break;	
+				
+			case 5:
+			    System.out.print("ID: ");
+			    Long idUpdate = sc.nextLong();
+			    sc.nextLine();
+
+			    System.out.print("Novo nome: ");
+			    String novoNome = sc.nextLine();
+
+			    System.out.print("Novo email: ");
+			    String novoEmail = sc.nextLine();
+
+			    System.out.print("Novo telefone: ");
+			    String novoTelefone = sc.nextLine();
+
+			    try {
+			        service.atualizar(idUpdate, novoNome, novoEmail, novoTelefone);
+			        System.out.println("Cliente atualizado!");
+			    } catch (Exception e) {
+			        System.out.println(e.getMessage());
+			    }
+			    break;    
 			case 0:
 				return;
 				
