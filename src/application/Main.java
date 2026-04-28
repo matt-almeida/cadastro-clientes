@@ -17,6 +17,7 @@ public class Main {
 			System.out.println("\n1 - Criar cliente");
 			System.out.println("2 - Listar clientes");
 			System.out.println("3 - Deletar clientes");
+			System.out.println("4 - Buscar cliente por ID");
 			System.out.println("0 - Sair");
 			
 			int opcao = sc.nextInt();
@@ -61,6 +62,18 @@ public class Main {
 					System.out.println(e.getMessage());
 				}
 				break;
+				
+			case 4:
+			    System.out.print("ID: ");
+			    Long idBusca = sc.nextLong();
+
+			    try {
+			        Cliente cliente = service.buscarPorId(idBusca);
+			        System.out.println(cliente);
+			    } catch (Exception e) {
+			        System.out.println(e.getMessage());
+			    }
+			    break;	
 				
 			case 0:
 				return;
