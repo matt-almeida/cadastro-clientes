@@ -2,8 +2,10 @@ package service;
 
 import java.util.List;
 
+import exception.ClienteNaoEncontradoException;
 import model.Cliente;
 import repository.ClienteRepository;
+import validation.ClienteValidator;
 
 public class ClienteService {
 	
@@ -15,15 +17,19 @@ public class ClienteService {
 	}
 	
 	public Cliente criar(String nome, String email, String telefone, String cpf) {
-		if (repository.buscarPorCpf(cpf).isPresent()) {
-			throw new RuntimeException("CPF já cadastrado!");
-		}
-		
-		Cliente cliente = new Cliente(contadorId++, nome, email, telefone, cpf);
-		repository.salvar(cliente);
-		
-		return cliente;
-		
+
+	    ClienteValidator.validarNome(nome);
+	    ClienteValidator.validarEmail(email);
+	    ClienteValidator.validarTelefone(telefone);
+
+	    if (repository.buscarPorCpf(cpf).isPresent()) {
+	        throw new RuntimeException("CPF já cadastrado!");
+	    }
+
+	    Cliente cliente = new Cliente(contadorId++, nome, email, telefone, cpf);
+	    repository.salvar(cliente);
+
+	    return cliente;
 	}
 	
 	public List<Cliente> listar() {
@@ -31,28 +37,21 @@ public class ClienteService {
 	}
 	
 	public Cliente buscarPorId(Long id) {
-		return repository.buscarPorId(id)
-				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+	    return repository.buscarPorId(id)
+	            .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado"));
 	}
 	
 	public void atualizar(Long id, String nome, String email, String telefone) {
-		Cliente cliente = buscarPorId(id);
-		
-		if (nome == null || nome.isBlank()) {
-			throw new IllegalArgumentException("Nome inválido");
-		}
 
-		if (email == null || email.isBlank()) {
-			throw new IllegalArgumentException("Email inválido");
-		}
+	    Cliente cliente = buscarPorId(id);
 
-		if (telefone == null || telefone.isBlank()) {
-			throw new IllegalArgumentException("Telefone inválido");
-		}
-		
-		cliente.setNome(nome);
-		cliente.setEmail(email);
-		cliente.setTelefone(telefone);
+	    ClienteValidator.validarNome(nome);
+	    ClienteValidator.validarEmail(email);
+	    ClienteValidator.validarTelefone(telefone);
+
+	    cliente.setNome(nome);
+	    cliente.setEmail(email);
+	    cliente.setTelefone(telefone);
 	}
 	
 	public void deletar(Long id) {
