@@ -55,7 +55,7 @@ public class ClienteConsole {
 
 		try {
 			Cliente cliente = service.criar(nome, email, telefone, cpf);
-			System.out.println("Cliente criado: " + cliente);
+			System.out.println("Cliente criado com sucesso: " + cliente);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -106,7 +106,7 @@ public class ClienteConsole {
 
 		try {
 			service.atualizar(id, nome, email, telefone);
-			System.out.println("Cliente atualizado!");
+			System.out.println("Cliente atualizado com sucesso!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
