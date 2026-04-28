@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import exception.ClienteNaoEncontradoException;
 import model.Cliente;
 import repository.ClienteRepository;
 import validation.ClienteValidator;
@@ -36,8 +37,8 @@ public class ClienteService {
 	}
 	
 	public Cliente buscarPorId(Long id) {
-		return repository.buscarPorId(id)
-				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+	    return repository.buscarPorId(id)
+	            .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado"));
 	}
 	
 	public void atualizar(Long id, String nome, String email, String telefone) {
