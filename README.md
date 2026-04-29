@@ -40,7 +40,9 @@ Projeto de estudo em Java com foco em arquitetura em camadas e boas práticas de
 
 ## 🛠️ Tecnologias
 
-- Java
+- Java 21
+- Maven
+- JUnit 5
 - Estrutura em memória (ArrayList)
 - Eclipse IDE
 
@@ -54,7 +56,22 @@ Evoluir gradualmente um CRUD simples para uma API REST com Spring Boot, aplicand
 
 ## 📌 Próximos passos
 
-- Implementar testes unitários (JUnit)
-- Migrar para Spring Boot
-- Criar API REST
-- Integrar com banco de dados (MySQL/PostgreSQL)
+- [ ] Escrever testes unitários com JUnit 5
+- [ ] Migrar persistência para JDBC + MySQL
+- [ ] Migrar para Spring Boot e criar API REST
+- [ ] Integrar com Spring Data JPA
+
+## ▶️ Como rodar
+
+**Pré-requisitos:** Java 21 e Maven instalados
+
+```bash
+# Clonar o repositório
+git clone https://github.com/matt-almeida/cadastro-clientes.git
+
+# Compilar
+mvn compile
+
+# Rodar os testes
+mvn test
+```
